@@ -4,13 +4,13 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new
+    @product_registration_form = ProductRegistrationForm.new
   end
 
   def create
-    @product = Product.new(product_params)
+    @product_registration_form = ProductRegistrationForm.new(product_registration_form_params)
 
-    if @product.save
+    if @product_registration_form.save
       redirect_to products_path
     else
       render :new, status: :unprocessable_entity
@@ -19,7 +19,9 @@ class ProductsController < ApplicationController
 
   private
 
-  def product_params
-    params.require(:product).permit(:code, :name, :price)
+  def product_registration_form_params
+    params
+      .require(:product_registration_form)
+        .permit( products_attributes: Forms::Product::REGISTRABLE_ATTRIBUTES)
   end
 end
