@@ -1,0 +1,33 @@
+<%= link_to '戻る', products_path, class:'btn' %>
+<%= form_with model: @product_registration_form, url: products_path do |f| %>
+  <%= render 'shared/error_message', object: f.object %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>登録</th>
+        <th>商品コード</th>
+        <th>商品名</th>
+        <th>価格</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= f.fields_for :products do |ff| %>
+        <tr>
+          <td>
+            <%= ff.check_box :register %>
+          </td>
+          <td>
+            <%= ff.text_field :code %>
+          </td>
+          <td>
+            <%= ff.text_field :name %>
+          </td>
+          <td>
+            <%= ff.text_field :price %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= f.submit '一括登録', class:'btn btn-primary' %>
+<% end %>
